@@ -1,0 +1,60 @@
+{% load static %}
+{% for display_user in page_obj %}
+    <!-- １ユーザー全体を囲むタグ -->
+    <div class="user-ele">
+        <!-- アイコン部分 -->
+        <div class="user-icon" onclick="location.href='{% url 'user_page' display_user.username %}'">
+            <a href="{% url 'user_page' display_user.username %}">
+                {% if display_user.icon_image %}
+                    <img src="{{ display_user.icon_image.url }}" style="width: 50px;height: auto;">
+                {% else %}
+                    <img src="{% static 'tmitter/image/icon_default.png' %}" style="width: 50px;height: auto;">
+                {% endif %}
+            </a>
+        </div>
+        <!-- ボディー部分 -->
+        <div class="user-body">
+            <div class="user-body-header">
+                <!-- 名前 -->
+                <div>
+                    <span class="nick-name">{{ display_user.nickname }}</span>
+                    <br>
+                    <span class="user-name">@{{ display_user.username }}</span>
+                </div>
+                    <!-- DMルームを作成する際のユーザー検索 -->
+                    {% if for_dm_room %}
+                        {% if display_user != user %}
+                        <div>
+                            <button class="make-dm-room-btn" onclick="location.href='{% url 'create_dm_room' display_user.id %}'">
+                                <span>このユーザーとトークをする</span>
+                            </button>
+                        </div>
+                        {% endif %}
+                    {% else %}
+                    <!-- フォローボタン -->
+                    <div class="follow-btn-wrapper" onclick="">
+                        {% if display_user == request.user %}
+                        {% elif display_user not in login_user_followings %}
+            
+                        <button class="follow follow-action" data-pk="{{ display_user.id }}">
+                            <span id="follow-{{ display_user.id }}" class="follow-text-unhovered">フォロー</span>
+                            <span class="follow-text-hovered" class="follow-text-hovered">フォロー解除</span>
+                        </button>
+            
+                        {% else %}
+            
+                        <button class="follow unfollow-action" data-pk="{{ display_user.id }}">
+                            <span id="follow-{{ display_user.id }}" class="follow-text-unhovered">フォロー中</span>
+                            <span class="follow-text-hovered">フォロー解除</span>
+                        </button>
+            
+                        {% endif %}
+                    </div>
+                    {% endif %}
+            </div>
+            <div class="user-description">
+                {{ display_user.description}}
+            </div>
+        </div>
+    </div>
+{% endfor %}

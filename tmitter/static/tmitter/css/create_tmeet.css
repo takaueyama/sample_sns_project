@@ -1,0 +1,9 @@
+@charset "UTF-8";
+
+.right-side p:nth-child(3), .right-side form:nth-child(4) {
+    display: none;
+}
+
+/* .main-wrapper {
+    max-width: 800px;
+} */

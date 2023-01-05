@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ display_user.nickname }}（@{{ display_user.username }}）さん / Tmitter{% endblock %}
+
+{% block head %}<link href="{% static 'tmitter/css/common.css' %}" rel="stylesheet">{% endblock %}
+
+{% block location_name %}{{ display_user.nickname }}@{{ display_user.username }}さん{% endblock %}
+
+{% block content %}
+    <!-- ヘッダー画像 -->
+    <div >
+        <img class="header-picture" src="{{ header_image_url }}">
+    </div>
+    <!-- プロフィールステータス -->
+    <div class="profile">
+        <div class="profile-header">
+            <div>
+                <img class="profile-icon" src="{{ icon_image_url }}">
+            </div>
+            <div class="profile-action">
+                <!-- dmボタン -->
+            {% if display_user != request.user %}
+                <div class="dm-send-icon">
+                    <img src="{% static 'tmitter/image/message.png' %}" onclick="location.href='{% url 'create_dm_room' display_user.id %}'">
+                </div>
+            {% endif %}
+            {% if request.user.id in display_user_followers %}
+                <button id="profile-follow-btn" class="follow unfollow-action" data-pk="{{ display_user.id }}">
+                    <span id="follow-{{ display_user.id }}" class="follow-text-unhovered">フォロー中</span>
+                    <span class="follow-text-hovered">フォロー解除</span>
+                </button>
+            {% elif request.user == display_user %}
+                <button id="profile-edit-btn" onclick="location.href='{% url 'setting' %}'">
+                    プロフィールを編集
+                </button>
+            {% else %}
+                <button id="profile-follow-btn" class="follow follow-action" data-pk="{{ display_user.id }}">
+                    <span id="follow-{{ display_user.id }}" class="follow-text-unhovered">フォロー</span>
+                    <span class="follow-text-hovered">フォロー解除</span>
+                </button>
+            {% endif %}
+            </div>
+        </div>
+        <div class="profile-body">
+            <div class="profile-name">
+                <span class="nick-name">{{ user.nickname }}</span>
+                <span class="user-name">@{{ user.username }}</span>
+            </div>
+            <div class="profile-introduction">
+                {{ user.description }}
+            </div>
+            <div class="profile-relation">
+                <a href="{% url 'following_list' user.username %}">フォロー：<span id="following_count">{{ display_user_followings.count }}</span></a>
+                <a href="{% url 'follower_list' user.username %}">フォロられ：<span id="follower_count">{{ display_user_followers.count }}</span></a>
+            </div>
+        </div>
+        
+    </div>
+    <div id="tmeet_content"></div>
+    <p id="loading_message">...読み込み中</p>
+{% endblock %}
+
+
+{% block js %}
+<script>
+    var TemplateVar = {
+        target_content_url: '{% url "user_page_content" %}' + '?user_name={{ display_user.username }}&',
+        target_content: 'tmeet_content',
+        like_url: '{% url "like" %}',
+        follow_url: '{% url "follow" %}',
+        delete_tmeet: '{% url "delete_tmeet" %}',
+        csrf_token: '{{ csrf_token }}',
+    }
+</script>
+<script src="{% static 'tmitter/js/scroll_to_load.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{% endblock %}
+
+{% block head %}<link href="{% static 'tmitter/css/common.css' %}" rel="stylesheet"{% endblock %}
+
+{% block location_name %}フォロー中{% endblock %}
+
+{% block content %}
+    <div id="following"></div>
+    <p id="loading_message">...読み込み中</p>
+{% endblock %}
+
+{% block js %}
+    <script>
+        var TemplateVar = {
+            target_content_url: '{% url "following_list_content" %}' + '?user_name={{ display_user.username }}&',
+            target_content: 'following',
+            
+            follow_url: '{% url "follow" %}',
+            like_url: '{% url "like" %}',
+            csrf_token: '{{ csrf_token }}',
+        }
+    </script>
+    <script src="{% static 'tmitter/js/scroll_to_load.js' %}"></script>
+{% endblock %}

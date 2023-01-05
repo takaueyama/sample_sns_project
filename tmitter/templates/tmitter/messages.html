@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} / Tmitter{% endblock %}
+
+{% block head %}<link href="{% static 'tmitter/css/common.css' %}" rel="stylesheet">{% endblock %}
+
+{% block location_name %}トークルーム{% endblock %}
+
+{% block content %}
+<div class="messages-content">
+    <button class="create-dm-room" onclick="location.href='{% url 'search_talk_with_user'%}'">トークルームの新規作成</button>
+    <div class="dm-rooms-wrapper">
+        {% for room in dm_rooms %}
+            <div>
+                {% for disp_user in room.users.all %}
+                    {% if disp_user != user%}
+                    <div class="dm-room" onclick="location.href='{% url 'dm_room' disp_user.username room.id %}'">
+                        <div class="dm-header">
+                            {% if disp_user.icon_image %}
+                                <img src="{{ disp_user.icon_image.url}}">
+                            {% else %}
+                                <img src="{% static 'tmitter/image/icon_default.png' %}">
+                            {% endif %}
+                        </div>
+                        <div class="dm-body">
+                            {{disp_user.nickname}}@{{disp_user.username}}とのトークルーム
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+
+{% block js %}
+{% endblock %}

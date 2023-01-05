@@ -1,0 +1,114 @@
+/* ログイン */
+body {
+    background-color: rgb(249, 249, 249);
+}
+
+li {
+    list-style: none;
+}
+
+.login-form {
+    border: 1px solid rgb(197, 197, 197);
+    border-radius: 5px;
+    width: 24rem;
+    height: 36rem;
+    margin: 200px auto;
+    background-color: white;
+    text-align: center;
+}
+
+.login-form h1 {
+    margin-top: 100px;
+}
+
+.login-form input {
+    height: 30px;
+    width: 200px;
+    margin: 10px auto;
+    background-color: rgb(249, 249, 249);
+    border: 2px;
+}
+
+.login-form button, .signup-form button {
+    height: 40px;
+    width: 200px;
+    margin: 10px auto;
+    background-color: rgb(104, 222, 255);
+    color: azure;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 1.1rem;
+}
+
+.login-form button:hover, .signup-form button:hover {
+    background-color: rgb(90, 219, 255);
+    transition-duration: 0.2s;
+}
+
+.signup-form{
+    border: 1px solid rgb(197, 197, 197);
+    border-radius: 5px;
+    background-color: white;
+    text-align: center;
+    max-width: 500px;
+    width: 50%;
+    min-width: 375px;
+    margin: 200px auto;
+}
+
+.signup-form h1 {
+    margin-top: 50px;
+}
+
+/* .signup-form form {
+    text-align: left;
+} */
+
+.signup-content {
+    width: 60%;
+    min-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    /* text-align: left; */
+    margin-bottom: 50px;
+}
+
+.signup-content ul {
+    padding: 0;
+    margin-top: 2px;
+}
+
+.signup-form form p {
+    margin-bottom: 0;
+}
+
+.signup-content form p, .signup-content form ul {
+    text-align: left;
+}
+
+.signup-content ul li {
+    font-size: 0.7rem;
+    margin-top: 4px;
+}
+
+.signup-content input {
+    width: 100%;
+    height: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+}
+
+.signup-content a {
+    margin-bottom: 15px;
+}
+
+.helptext {
+    font-size: 0.7rem;
+    text-align: left;
+}
+
+.signup-form button {
+    margin-top: 50px;
+}

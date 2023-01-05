@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{% endblock %}
+
+{% block head %}<link href="{% static 'tmitter/css/common.css' %}" rel="stylesheet">{% endblock %}
+
+{% block location_name %}テスト{% endblock %}
+
+{% block content %}
+    <form id="the-form" action="/echo/json" method="POST">
+        <input type="text" name="name" value="" placeholder="Name" /><br />
+        <input type="email" name="mail" value="" placeholder="Mail" /><br />
+        <label><input type="radio" name="sex" value="male" />男性</label>
+        <label><input type="radio" name="sex" value="female" />女性</label><br />
+        <textarea name="message" placeholder="Messages"></textarea><br />
+        <button>送信！</button>
+    </form>
+    <div id="result"></div>
+{% endblock %}
+
+{% block js %}
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script>
+    jQuery(function($) {
+        $('#the-form').submit(function(event) {
+            // HTMLでの送信をキャンセル
+            event.preventDefault();
+            
+            // 操作対象のフォーム要素を取得
+            var $form = $(this);
+            
+            // 送信ボタンを取得
+            // （後で使う: 二重送信を防止する。）
+            var $button = $form.find('button');
+            
+            // 送信
+            $.ajax({
+                url: $form.attr('action'),
+                type: $form.attr('method'),
+                data: $form.serialize()
+                    + '&delay=1',  // （デモ用に入力値をちょいと操作します）
+                timeout: 10000,  // 単位はミリ秒
+                
+                // 送信前
+                beforeSend: function(xhr, settings) {
+                    // ボタンを無効化し、二重送信を防止
+                    $button.attr('disabled', true);
+                },
+                // 応答後
+                complete: function(xhr, textStatus) {
+                    // ボタンを有効化し、再送信を許可
+                    $button.attr('disabled', false);
+                },
+                
+                // 通信成功時の処理
+                success: function(result, textStatus, xhr) {
+                    // 入力値を初期化
+                    $form[0].reset();
+                    
+                    $('#result').text('OK');
+                },
+                
+                // 通信失敗時の処理
+                error: function(xhr, textStatus, error) {}
+            });
+        });
+        
+        // デモ用に入力値を設定
+        var $form = $('#the-form');
+        $form.find('[name=name]').val('名無しさん');
+        $form.find('[name=mail]').val('anonymouse@example.com');
+        $form.find('[name=sex][value=male]').prop('checked', true);
+        $form.find('[name=message]').val('こんにちはこんにちは！');
+    });
+</script>
+{% endblock %}

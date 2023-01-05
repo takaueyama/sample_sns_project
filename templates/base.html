@@ -1,0 +1,102 @@
+{% load static %}
+<!doctype html>
+<html lang="ja">
+    <head>
+    <meta charset="utf-8">
+        <title>{% block title %}{% endblock %}</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/png" href="{% static 'tmitter/image/favicon.png' %}">
+        <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+        <!-- Webフォントを利用可能にする -->
+        <link href="https://fonts.googleapis.com/css?family=Philosopher" rel="stylesheet">
+        <link href="{% static 'tmitter/css/base.css' %}" rel="stylesheet">
+        {% block head %}{% endblock %}
+    </head>
+    <body>
+        <div class="main-wrapper wrapper">
+            <header>
+                <nav>
+                    <div class="link-icon-wrapper">
+                        <a href="{% url 'home' %}" class="link-icon-anchor"><img class="link-icon" src="{% static 'tmitter/image/home.png' %}"></a>
+                        <span class="circle"></span>
+                    </div>
+                    <div class="link-icon-wrapper">
+                        <a href="{% url 'explore' %}" class="link-icon-anchor"><img class="link-icon" src="{% static 'tmitter/image/search.png' %}"></a>
+                        <span class="circle"></span>
+                    </div>
+                    <div class="link-icon-wrapper">
+                        <a href="{% url 'notification' %}" class="link-icon-anchor"><img class="link-icon" src="{% static 'tmitter/image/notification.png' %}"></a>
+                        <span class="circle"></span>
+                    </div>
+                    <div class="link-icon-wrapper">
+                        <a href="{% url 'messages' %}" class="link-icon-anchor"><img class="link-icon" src="{% static 'tmitter/image/message.png' %}"></a>
+                        <span class="circle"></span>
+                    </div>
+                    <div class="link-icon-wrapper">
+                        <a href="{% url 'user_page' user.username %}" class="link-icon-anchor"><img class="link-icon" src="{% static 'tmitter/image/profile.png' %}"></a>
+                        <span class="circle"></span>
+                    </div>
+                    <div class="link-icon-wrapper">
+                        <a href="{% url 'setting' %}" class="link-icon-anchor"><img class="link-icon" src="{% static 'tmitter/image/setting.png' %}"></a>
+                        <span class="circle"></span>
+                    </div>
+                    <div class="link-icon-wrapper">
+                        <a href="{% url 'create_tmeet' %}" class="link-icon-anchor"><img class="link-icon" src="{% static 'tmitter/image/create_tmeet.png' %}"></a>
+                        <span class="circle"></span>
+                    </div>
+                    <div class="link-icon-wrapper logout-icon">
+                        <a class="link-icon-anchor"><img class="link-icon" src="{% static 'tmitter/image/logout.png' %}"></a>
+                        <span class="circle"></span>
+                    </div>
+                </nav>
+            </header>
+
+            <div class="main-content">
+                <div class="location-name-wrapper" >
+                    <div class="back-link" onclick="history.back()">
+                        <a  class="link-icon-anchor"><img class="" src="{% static 'tmitter/image/back.png' %}"></a>
+                        {% comment %} <span class="back-icon-circle"></span> {% endcomment %}
+                    </div>
+                    <div class="location-name">
+                        {% block location_name%}{% endblock %}
+                    </div>
+                </div>
+                <div class="main-content-body">
+                   {% block content %}{% endblock content %} 
+                </div>
+            </div>
+
+            <div class="right-side">
+                <p>キーワード検索をする</p>
+                <form action="{% url 'explore' %}" method="get">
+                    <input type="search" value="{{ request.GET.query }}" name="q" type="text">
+                </form>
+                <p>Tmeetしてみる</p>
+                <form id="form" action="{% url 'create_tmeet' %}" enctype="multipart/form-data" method="post">
+                    <div class="tmeet-form-main">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <label for="id_picture1" id="picture_icon"><img src="{% static 'tmitter/image/picture_adder.png' %}"></label>
+                    </div>
+                    <img class="picture_preview">
+                    <button type="submit" class="tmeet_btn">Tmeet !</button>
+                </form>
+            </div>
+        </div>
+        <script src="{% static 'tmitter/js/preview.js' %}"></script>
+        {% block js %}{% endblock %}
+        <script>
+            const logout_icons = document.getElementsByClassName('logout-icon');
+
+            for (icon of logout_icons) {
+                icon.addEventListener('click', () => {
+                    let check = confirm('ログアウトします。よろしいですか？');
+                    if (check) {
+                        window.location.href = '{% url "logout" %}';
+                    }
+                })
+            }
+        </script>
+    </body>
+</html>

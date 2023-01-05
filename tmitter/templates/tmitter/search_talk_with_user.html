@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} / Tmitter{% endblock %}
+
+{% block head %}<link href="{% static 'tmitter/css/common.css' %}" rel="stylesheet">{% endblock %}
+
+{% block location_name %}トークするユーザーを探す{% endblock %}
+
+{% block content %}
+<!-- ユーザーの検索 -->
+<div class="search-talk-with-user">
+    <p>トークするユーザーの検索</p>
+        <form action="{% url 'search_talk_with_user' %}" method="get">
+            <input type="search" value="{{ request.GET.query }}" name="q" type="text">
+        </form>
+    </p>
+</div>
+<!-- トークルームを作成するユーザー -->
+{% if search_value != random_string %}
+<div class="explore-result">
+    <p>ユーザーの検索結果</p>
+    <div id="user_content"></div>
+    <button id="load_user">結果をさらに読み込む</button>
+</div>
+{% endif %}
+
+{% endblock %}
+
+
+{% block js %}
+<script>
+    var TemplateVar = {
+        search_value: '{{ search_value }}',
+        follow_url: '{% url "follow" %}',
+        like_url: '{% url "like" %}',
+        user_content_url: '{% url "search_talk_with_user_content" %}',
+        csrf_token: '{{ csrf_token }}',
+        random_string: '{{ random_string }}',
+    }
+</script>
+<script src="{% static 'tmitter/js/create_dm_room.js' %}"></script>
+{% endblock %}

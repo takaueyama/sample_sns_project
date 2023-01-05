@@ -1,0 +1,50 @@
+{% load static %}
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>「いも」を見つけよう/Tmitter</title>
+        <link href="https://fonts.googleapis.com/css?family=Philosopher" rel="stylesheet">
+        <link rel="icon" type="image/png" href="{% static 'tmitter/image/favicon.png' %}">
+		<link rel="stylesheet" href="{% static 'accounts/css/style.css' %}">
+    </head>
+    <body>
+        <div class="signup-form" >
+            <h1>サインアップ</h1>
+            <div class="signup-content">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit">ユーザー登録</button>
+                </form>
+                <p>アカウントをお持ちの場合</p>
+                <a href="{% url 'login' %}">ログイン</a>                  
+            </div>
+          
+        </div>
+        <script>
+            const help_texts = document.getElementsByClassName("helptext");
+            const username_input = document.getElementById("id_username");
+            const nickname_input = document.getElementById("id_nickname");
+            const password1_input = document.getElementById("id_password1")
+            const password2_input = document.getElementById("id_password2")
+
+            // djangoのデフォルトで表示されるlabelの非表示
+            const labels = document.getElementsByTagName("label");
+            for (const label of labels) {
+                label.style.display = "none";
+            }
+            for (const help_text of help_texts) {
+                const br = document.createElement('br');
+                help_text.before(br);
+            }
+
+            username_input.placeholder = "ユーザーID";
+            nickname_input.placeholder = "ニックネーム";
+            password1_input.placeholder = "パスワード";
+            password2_input.placeholder = "パスワード(確認用)"
+
+            console.log(username_input);
+        </script>
+    </body>
+</html>

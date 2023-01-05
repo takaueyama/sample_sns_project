@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ request.user.username }}{% endblock %}
+
+{% block head %}<link href="{% static 'tmitter/css/common.css' %}" rel="stylesheet">{% endblock %}
+
+{% block location_name %}ホーム{% endblock %}
+
+{% block content %}
+    <div id="tmeet_content"></div>
+    <p id="loading_message">...読み込み中</p>
+{% endblock %}
+
+{% block js %}
+    <script>
+        var TemplateVar = {
+            target_content_url: '{% url "home_tmeet_content" %}' + '?',
+            target_content: 'tmeet_content',
+            delete_tmeet: '{% url "delete_tmeet" %}',
+            follow_url: '{% url "follow" %}',
+            like_url: '{% url "like" %}',
+            csrf_token: '{{ csrf_token }}',
+        }
+    </script>
+    <script src="{% static 'tmitter/js/scroll_to_load.js' %}"></script>
+{% endblock %}

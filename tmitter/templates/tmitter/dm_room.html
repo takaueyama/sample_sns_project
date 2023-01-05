@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ opp_user.nickname }}（@{{ opp_user.username }}）さんとのトーク / Tmitter{% endblock %}
+
+{% block head %}<link href="{% static 'tmitter/css/common.css' %}" rel="stylesheet">{% endblock %}
+
+{% block location_name %}
+    {{ opp_user.nickname }}さんとトーク
+{% endblock %}
+
+{% block content %}
+<div id="dm-content-wrapper">
+    <div id="dm-content"></div>
+    <div id="scroll_target"></div>
+</div>
+
+
+<div class="dm-sender">
+    <form id="dm-form" action="" enctype="multipart/form-data" method="post">
+        {% csrf_token %}
+        {{ dm_form.as_p }}
+        <button id="dm_sub_btn" type="submit"><img src="{% static 'tmitter/image/send_message.png' %}"</button>
+    </form>
+</div>
+{% endblock %}
+
+
+{% block js %}
+<script>
+    TemplateVar = {
+        // 
+        url: '{% url "send_message" %}',
+        dm_room_id: '{{ dm_room_id }}',
+        csrf_token: '{{ csrf_token }}',
+        ajax_url: "{% url 'dm_room_content' opp_user.username dm_room_id %}",
+    }
+</script>
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="{% static 'tmitter/js/dm_room.js' %}"></script>
+
+{% endblock %}

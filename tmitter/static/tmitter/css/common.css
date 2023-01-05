@@ -1,0 +1,731 @@
+@charset "UTF-8";
+
+/* Tmeet内のデザイン */
+
+.tmeet {
+    /* width: 600px; */
+    border: 1px solid rgb(215, 215, 215);
+    display: flex;
+}
+
+.tmeet:hover {
+    transition: 0.3s;
+    background-color: rgb(247, 247, 247);
+}
+
+.user-icon {
+    padding-top: 5px;
+    padding-left: 5px;
+    width: 60px;
+}
+
+.user-icon img {
+    border-radius: 50%;
+}
+
+.tmeet-body {
+    flex: 1;
+}
+
+.nick-name {
+    font-weight: bold;
+    /* font-family: "モトヤシーダ"; */
+}
+
+.user-name {
+    font-size: 0.8rem;
+}
+
+.profile-name .user-name {
+    font-size: 15px;
+}
+
+.tmeet_btn {
+    width: 150px;
+    height: 50px;
+    background-color: #79c3ff;
+    color: white;
+    border-radius: 10px;
+    border-style: none;
+    font-size: 1.2rem;
+    margin-top: 10px;
+}
+
+.tmeet_btn:hover {
+    cursor: pointer;
+    background-color: #79c3ffbb;
+    transition-duration: 0.2s;
+}
+
+.home-contents #id_content {
+    font-family: "Yu Gothic Medium";
+    border-radius: 15px;
+    border: none;
+    background-color: rgb(239, 239, 239);
+    resize: vertical;
+    width:250px;
+    height:200px;    
+    display: inline;
+}
+
+.tmeet-form-main {
+    display: flex;
+}
+
+.tmeet-footer {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.tmeet-actions {
+    display: flex;
+}
+
+.tmeet-actions div {
+    margin-right: 30px;
+}
+
+.delete-tmeet-icon {
+    width: 15px;
+    height: 15px;
+}
+
+.delete_btn {
+    padding-right: 20px;
+}
+
+/* .tmeet_content {
+    max-width: 100%;
+} */
+
+/* create_tmeet */
+
+.create-tmeet-content #id_content {
+    font-family: "Yu Gothic Medium";
+    border-radius: 15px;
+    border: none;
+    background-color: rgb(239, 239, 239);
+    resize: vertical;
+    width:500px;
+    height:300px;    
+    display: inline;
+    margin: 15px 15px 0 15px;
+    resize: none;
+}
+
+.create-tmeet-content {
+    text-align: center;
+}
+
+.create-tmeet-content p {
+    font-size: 1.3rem;
+}
+
+.picture-adder img {
+    align-items: center;
+    display: inline;
+    width: 20px;
+    height: auto;
+}
+
+/* Tmeet詳細画面 */
+
+.main-tmeet {
+    font-size: 1.2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-tmeet-header {
+    display: flex;
+
+}
+
+.main-tmeet-body {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.tmeet-body {
+    margin-left: 10px;
+}
+
+.reply-to {
+    font-size: 0.8rem;
+}
+
+.main-tmeet .tmeet-name {
+    display: flex;
+    flex-direction: column;
+}
+
+/* user_page */
+.profile {
+    margin-top: -50px;
+}
+
+.profile-header {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.profile-action {
+    padding-top: 40px;
+    display: flex;
+}
+
+.dm-send-icon img {
+    padding: 2px;
+    width: 25px;
+    height: auto;
+    margin-top: 12px;
+    margin-right: 7px;
+    border: 1px solid black;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.profile-icon {
+    border-radius: 50%;
+    border-color: black;
+    border: 2px;
+    width: 125px;
+    height: 125px;
+    min-width: 125px;
+}
+
+.profile-name {
+    /* display: flex; */
+    flex-direction: column;
+}
+
+.profile-name .nick-name {
+    font-size: 30px;
+    font-weight: bold;
+    padding-bottom: 0;
+}
+
+.profile-name {
+    padding-left: 5px;
+}
+
+.profile-introduction {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+}
+
+.profile-relation {
+    padding-left: 5px;
+    padding-top: 10px;
+}
+
+/* フォローボタン関連 */
+/* .follow {
+    border: ;
+} */
+
+.profile-header .follow { 
+    width: 110px;
+    height: 35px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+#profile-edit-btn {
+    width: 180px;
+    height: 40px;
+    background-color: white;
+    color: black;
+    border: 1px rgb(201, 201, 201) solid;
+    border-radius: 20px;
+    font-size: 1rem;
+    margin-top: 10px;
+}
+
+#profile-edit-btn:hover {
+    cursor: pointer;
+    background-color: #f4f4f4;
+    transition-duration: 0.2s;
+}
+
+.follow-action {
+    background-color:black;
+    color:white;
+}
+
+.follow-action:hover {
+    background-color: rgb(40, 40, 40)
+}
+
+.unfollow-action {
+    background-color:white;
+    color:black;
+    border:1px solid gray;
+}
+
+.unfollow-action:hover {
+    /* background-color: rgb(247, 247, 247); */
+    /* content: "フォロー解除"; */
+    color: tomato;
+    border-color: tomato;
+}
+
+.follow-text-hovered {
+    display: none;
+}
+
+.unfollow-action:hover .follow-text-unhovered {
+    display: none;
+}
+
+.unfollow-action:hover .follow-text-hovered {
+    display: inline;
+}
+
+
+
+/* setting */
+
+.header-setting {
+    position: relative;
+}
+
+.icon-setting {
+    margin-top: -50px;
+    margin-left: 15px;
+}
+
+#header_image_input, #icon_image_input {
+    display: none;
+}
+
+.header-setting, .icon-setting {
+    position: relative;
+}
+
+.image-changer {
+    cursor: pointer;
+}
+
+.header-setting .image-changer {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    width: 50px;
+    height: 50px;
+    opacity: 0.8;
+}
+
+.icon-setting .image-changer {
+    position: absolute;
+    left: 38px;
+    top: 40px;
+    width: 50px;
+    height: 50px;
+    opacity: 0.8;
+}
+
+#icon-preview {
+    border-radius: 50%;
+    border-color: black;
+    border: 2px;
+    width: 125px;
+    height: 125px;
+    min-width: 125px;
+}
+
+.profile-setting label[for="id_description"], .profile-setting label[for="id_nickname"] {
+    display: none;
+}
+
+.profile-setting input[name="nickname"] {
+    width: 400px;
+    height: 50px;
+    font-size: large;
+}
+
+.profile-setting textarea[name="description"] {
+    width: 400px;
+    height: 150px;
+    font-size: large;
+    resize: none;
+}
+
+.profile-setting form {
+    text-align: center;
+}
+
+.profile-setting .helptext {
+    display: none;
+}
+
+.profile-setting .profile-update-btn {
+    width: 80px;
+    height: 40px;
+    background-color: black;
+    color: white;
+    border-radius: 20px;
+    border-style: none;
+    font-size: 1rem;
+    margin-top: 10px;
+    margin-left: 320px;
+}
+
+.profile-update-btn:hover {
+    background-color: rgb(30, 30, 30);
+}
+
+.profile-setting #id_nickname {
+    border: 1px solid rgb(217, 217, 217);
+    margin-top: 15px;
+}
+
+.profile-setting #id_description {
+    border: 1px solid rgb(217, 217, 217);
+    margin-top: 30px;
+}
+
+div.bg_dark {
+    background-color: black;
+    display: inline-block;
+}
+
+.bg_dark img{
+  display: block;
+  opacity: 0.7;
+}
+
+div.bg_image {
+    width: 125px;
+    height: 125px;
+    background-image: url("../image/black_bg.png");
+    background-size: cover;
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.3;
+    margin-top: -134px;
+}
+
+.delete-user-btn {
+    width: 50px;
+    height: 25px;
+    border: 1px solid red;
+    color: red;
+    background-color: white;
+    float: right;
+    margin-top: 300px;
+    margin-right: 100px;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.delete-user-btn:hover {
+    border: 1px solid tomato;
+    color: tomato;
+}
+
+/* Modalウィンドウ */
+
+.modal {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0,0,0,0.5);
+    overflow: auto;
+    z-index: 1;
+}
+
+.modal-content {
+    background-color: #f4f4f4;
+    margin: 50px auto;
+    width: 100%;
+    max-width: 750px;
+    min-width: 300px;
+    box-shadow: 0 5px 8px 0 rgba(0,0,0,0.2),0 7px 20px 0 rgba(0,0,0,0.17);
+    animation-name: modalopen;
+    animation-duration: 1s;
+}
+
+@keyframes modalopen {
+    from {opacity: 0}
+    to {opacity: 1}
+}
+
+.modal-header h1 {
+    margin: 1rem 0;
+}
+  
+.modal-header {
+    background: lightblue;
+    padding: 3px 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.modal button {
+    width: 100px;
+    height: 40px;
+    background-color: black;
+    color: white;
+    border-radius: 20px;
+    border-style: none;
+    font-size: 1rem;
+    margin-top: 10px;
+}
+
+.modalClose {
+    font-size: 2rem;
+}
+
+.modalClose:hover {
+    cursor: pointer;
+}
+
+.modal-body {
+    color: black;
+}
+
+/* ユーザー一覧　*/
+
+.user-ele {
+    display: flex;
+    border-right: 1px solid rgb(215, 215, 215);
+    border-left: 1px solid rgb(215, 215, 215);
+    padding-bottom: 10px;
+}
+
+.user-ele:hover {
+    transition: 0.2s;
+    background-color: rgb(247, 247, 247);
+}
+
+.user-ele .user-name {
+    font-size: small;
+}
+
+.user-ele .nick-name {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.user-body {
+    flex: 1;
+}
+
+.user-body-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.user-ele .follow { 
+    width: 90px;
+    height: 30px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    margin-top: 10px;
+    margin-right: 20px;
+}
+
+.user-ele .user-description {
+    font-size: 0.8rem;
+}
+
+/* explore */
+
+.explore-form {
+    text-align: center;
+}
+
+.explore input {
+    width: 70%;
+    max-width: 800px;
+    min-width: 500px;
+}
+
+.reply-image {
+    width: 20px;
+    height: 20px;
+}
+
+/* tmeet_detail */
+.user_name a {
+    color: red;
+}
+
+/* notification */
+.notification-wrapper {
+    display: flex;
+    border: 1px solid rgb(215, 215, 215);
+}
+
+.notification-header img {
+    width: 40px;
+    height: 40px;
+    padding-top: 10px;
+    padding-left: 10px;
+}
+
+.notification-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.notification-user-icon img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.notification-tmeet p {
+    color: gray;
+}
+
+/* messages */
+.messages-content {
+    text-align: center;
+}
+
+.create-dm-room {
+    width: 300px;
+    height: 50px;
+    background-color: #79c3ff;
+    color: white;
+    border-radius: 10px;
+    border-style: none;
+    font-size: 1.2rem;
+    margin-top: 10px;
+}
+.create-dm-room:hover {
+    cursor: pointer;
+    background-color: #79c3ffbb;
+    transition-duration: 0.2s;
+}
+
+.dm-rooms-wrapper {
+    margin-top: 10px;
+}
+
+.dm-room {
+    display: flex;
+    border: 1px solid rgb(215, 215, 215);
+}
+
+.dm-room:hover {
+    transition: 0.3s;
+    background-color: rgb(247, 247, 247);
+    cursor: pointer;
+}   
+
+.dm-header img {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+.dm-body {
+    margin-left: 10px;
+}
+
+
+/* dm_room */
+.dm-sender {
+    position: fixed;
+    bottom: 5px;
+}
+
+.dm-sender form{
+    display: flex;
+}
+
+.dm-sender #id_content {
+    width: 500px;
+    height: 30px;
+    padding: 3px 7px;
+    border-radius: 15px;
+    background-color: rgb(239, 239, 239);
+    border: none;
+    resize: none;
+}
+
+.dm-sender img {
+    margin-left: 10px;
+    width: 40px;
+    height: 40px;
+}
+
+#dm-content p {
+    margin: 10px;
+    display: inline-block;
+    border-radius: 25px;
+    padding: 10px 15px;
+    max-width: 80%;
+}
+
+.my-message {
+    text-align: right;
+}
+
+.my-message p {
+    background-color: #79c3ff;
+    text-align: left;
+}
+
+.my-message span{
+    color: white;
+    /* padding: 30px; */
+}
+
+.others-message p {
+    background-color: white;
+    border: 1px solid rgb(176, 176, 176);
+}
+
+.others-message span{
+    /* padding: 15px; */
+    border-radius: 20px;
+}
+
+#dm-content {
+    height: 90vh;
+    overflow: auto;
+}
+
+.make-dm-room-btn {
+    border: 1px solid gray;
+    border-radius: 15px;
+    background-color: white;
+    color: black;
+    font-size: 0.8rem;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.make-dm-room-btn:hover {
+    transition: 0.2s;
+    background-color: rgb(242, 242, 242);
+}
+
+.make-dm-room-btn span {
+    padding: 5px;
+}
+
+/**/
+.search-talk-with-user {
+    text-align: center;
+}
+
+.search-talk-with-user input {
+    width: 350px;
+}

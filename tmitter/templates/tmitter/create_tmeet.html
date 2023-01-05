@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ request.user.username }}{% endblock %}
+
+{% block head %}
+    <link href="{% static 'tmitter/css/common.css' %}" rel="stylesheet">
+    <link href="{% static 'tmitter/css/create_tmeet.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block location_name %}
+    {% if reply %}
+        返信を作成する
+    {% else %}
+        ツミートする
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="create-tmeet-content">
+        {% comment %} <img id = "preview1"> {% endcomment %}
+        {% if reply %}
+        <div id="tmeet-{{ tmeet.pk }}" class="tmeet" style="cursor:pointer;" >
+
+            <div class="user-icon">
+                <a href="{% url 'user_page' tmeet.user.username %}">
+                    {% if tmeet.user.icon_image %}
+                        <img src="{{ tmeet.user.icon_image.url }}" style="width: 50px;height: auto;">
+                    {% else %}
+                        <img src="/media/default/icon_default.png" style="width: 50px;height: auto;">
+                    {% endif %}
+                </a>
+            </div>
+            <div class="tmeet-body">
+                <div onclick="location.href='{% url 'tmeet_detail' tmeet.id %}'">
+                    <div class="tmeet-name">
+                        <span class="nick-name">{{ tmeet.user.nickname }}</span>
+                        <span class="user-name">@{{ tmeet.user.username }}</span>
+                    </div>
+                    <div class="user-name">
+                        {% if tmeet.parent %}
+                            <p>返信先: <a href="{% url 'user_page' tmeet.parent.user %}">@{{ tmeet.parent.user.username }}</a></p>
+                        {% endif %}
+                    </div>
+                    <div class="tmeet-detail">
+                        <p>{{ tmeet.content }}</p>
+                    
+                        {% if tmeet.picture1 %}
+                            <a href="{{ tmeet.picture1.url }}">
+                                <p><img src="{{ tmeet.picture1.url }}" style="width: 200px;height: auto;"></p>
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+    
+                <div class="tmeet-footer">
+                    <div class="tmeet-actions">
+                        <div>
+                            <a href="{% url 'create_tmeet' %}?to={{ tmeet.pk }}">💭</a>{{ tmeet.child.count }}
+                        </div>
+                        {% if request.user in tmeet.like.all %}
+                        <div class="like" style="cursor: hand; cursor:pointer;" data-pk="{{ tmeet.pk }}">
+                            <span id="like-icon-{{ tmeet.pk }}" style="color:rgb(255, 0, 119);">&#9829;</span>
+                            <span id="like-count-{{ tmeet.pk }}">{{ tmeet.like.count }}</span>
+                        </div>
+                        {% else %}
+                        <div class="like" style="cursor: hand; cursor:pointer;" data-pk="{{ tmeet.pk }}">
+                            <span id="like-icon-{{ tmeet.pk }}" style="color:rgb(255, 0, 119);">&#9825;</span>
+                            <span id="like-count-{{ tmeet.pk }}">{{ tmeet.like.count }}</span>
+                        </div>
+                        {% endif %}
+                    </div>
+    
+                    {% if tmeet.user == user %}
+                        <div class="delete_btn" data-pk="{{ tmeet.pk }}" style="color:red; cursor:pointer;">
+                            <img class="delete-tmeet-icon" src={% static 'tmitter/image/delete_tmeet.png' %}>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+    
+        </div>
+            <p>↑</p>
+        {% else %}
+            <p>近況をTmeetしてみよう</p>
+        {% endif %}
+        <form  action="" enctype="multipart/form-data" method="post">
+            {% csrf_token %}
+            <input value="{{ to }}" name="to" type="hidden">
+                {{ form.as_p }}
+                <div class="picture-adder">
+                    <label for="id_picture1" id="picture_icon">画像を添付する<img src="{% static 'tmitter/image/picture_adder.png' %}"></label>
+                </div>
+                <img class="picture_preview">
+            <button type="submit" class="tmeet_btn">Tmeet !</button>
+        </form>
+    </div>
+{% endblock %}
+
+{% block js %}
+{% endblock %}

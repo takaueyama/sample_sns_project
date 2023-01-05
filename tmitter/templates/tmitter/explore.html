@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ request.user.username }}{% endblock %}
+
+{% block head %}
+<link href="{% static 'tmitter/css/common.css' %}" rel="stylesheet">
+<link href="{% static 'tmitter/css/explore.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block location_name %}検索{% endblock %}
+
+{% block content %}
+    <div class="explore">
+        <div class="explore-form">
+            <p>キーワード検索をする</p>
+                <form action="{% url 'explore' %}" method="get">
+                    <input type="search" value="{{ request.GET.query }}" name="q" type="text" placeholder="ユーザー、Tmeet検索">
+                </form>
+        </div>
+        {% if search_value != random_string %}
+        <div class="explore-result">
+            <p>ユーザーの検索結果</p>
+            <div id="user_content"></div>
+            <button id="load_user">結果をさらに読み込む</button>
+            <p>Tmeetの検索結果</p>
+            <div id="tmeet_content"></div>
+            <button id="load_tmeet">結果をさらに読み込む</button>
+        </div>
+        {% endif %}
+    </div>
+
+
+{% endblock %}
+
+{% block js %}
+<script>
+    var TemplateVar = {
+        search_value: '{{ search_value }}',
+        follow_url: '{% url "follow" %}',
+        like_url: '{% url "like" %}',
+        user_content_url: '{% url "explored_user_content" %}',
+        tmeet_content_url: '{% url "explored_tmeet_content" %}',
+        csrf_token: '{{ csrf_token }}',
+        random_string: '{{ random_string }}',
+    }
+</script>
+<script src="{% static 'tmitter/js/explore.js' %}"></script>
+{% endblock %}

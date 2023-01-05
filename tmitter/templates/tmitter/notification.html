@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ request.user.username }}{% endblock %}
+
+{% block head %}
+    <link href="{% static 'tmitter/css/common.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block location_name %}通知{% endblock %}
+
+{% block content %}
+    {% for notification in notifications %}
+        {% if notification.kind ==  followed %}
+        <div class="notification-wrapper">
+            <div class="notification-header">
+                <img src="{% static 'tmitter/image/create_tmeet.png' %}">
+            </div>
+            <div class="notification-body">
+                <div class="notification-user-icon">
+                    <a href="{% url 'user_page' notification.by_user.username %}">
+                        {% if notification.by_user.icon_image %}
+                            <img src="{{ notification.by_user.icon_image.url }}">
+                        {% else %}
+                            <img src="{% static 'tmitter/image/icon_default.png' %}">
+                        {% endif %}                             
+                    </a>
+                </div>
+                <div>
+                    <p>{{ notification.by_user.nickname }}さんにフォローされました</p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% if notification.kind ==  liked %}
+        <div class="notification-wrapper">
+            <div class="notification-header">
+                <img src="{% static 'tmitter/image/liked_notification.png' %}">
+            </div>
+            <div class="notification-body">
+                <div class="notification-user-icon">
+                    <a href="{% url 'user_page' notification.by_user.username %}">
+                        {% if notification.by_user.icon_image %}
+                            <img src="{{ notification.by_user.icon_image.url }}">
+                        {% else %}
+                            <img src="{% static 'tmitter/image/icon_default.png' %}">
+                        {% endif %}                        
+                    </a>
+              
+                </div>
+                <div class="notification-content">
+                    <p>{{ notification.by_user.nickname }}さんがいいねしました</p>
+                </div>
+                <div class="notification-tmeet">
+                    <p><a href="{% url 'tmeet_detail' notification.tmeet.id %}">{{ notification.tmeet.content }}</a></p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        <!-- 返信受け取りの場合の通知 -->
+        {% if notification.kind ==  replied %}
+        <div id="tmeet-{{ notification.by_tmeet.pk }}" class="tmeet" style="cursor:pointer;" >
+            <div class="user-icon">
+                <a href="{% url 'user_page' notification.by_tmeet.user.username %}">
+                    {% if notification.by_tmeet.user.icon_image %}
+                        <img src="{{ notification.by_tmeet.user.icon_image.url }}" style="width: 50px;height: auto;">
+                    {% else %}
+                        <img src="/media/default/icon_default.png" style="width: 50px;height: auto;">
+                    {% endif %}
+                </a>
+            </div>
+            <div class="tmeet-body">
+                <div onclick="location.href='{% url 'tmeet_detail' notification.by_tmeet.id %}'">
+                    <div class="tmeet-name">
+                        <span class="nick-name">{{ notification.by_tmeet.user.nickname }}</span>
+                        <span class="user-name">@{{ notification.by_tmeet.user.username }}</span>
+                    </div>
+                    <div class="user-name">
+                        {% if notification.by_tmeet.parent %}
+                            <p>返信先: <a href="{% url 'user_page' notification.by_tmeet.parent.user %}">@{{ notification.by_tmeet.parent.user.username }}</a></p>
+                        {% endif %}
+                    </div>
+                    <div class="tmeet-detail">
+                        <p>{{ notification.by_tmeet.content }}</p>
+                    
+                        {% if notification.by_tmeet.picture1 %}
+                            <a href="{{ notification.by_tmeet.picture1.url }}">
+                                <p><img src="{{ notification.by_tmeet.picture1.url }}" style="width: 200px;height: auto;"></p>
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+    
+                <div class="tmeet-footer">
+                    <div class="tmeet-actions">
+                        <div>
+                            <a href="{% url 'create_tmeet' %}?to={{ notification.by_tmeet.pk }}">💭</a>{{ notification.by_tmeet.child.count }}
+                        </div>
+                        {% if request.user in notification.by_tmeet.like.all %}
+                        <div class="like" style="cursor: hand; cursor:pointer;" data-pk="{{ notification.by_tmeet.pk }}">
+                            <span id="like-icon-{{ notification.by_tmeet.pk }}" style="color:rgb(255, 0, 119);">&#9829;</span>
+                            <span id="like-count-{{ notification.by_tmeet.pk }}">{{ notification.by_tmeet.like.count }}</span>
+                        </div>
+                        {% else %}
+                        <div class="like" style="cursor: hand; cursor:pointer;" data-pk="{{ notification.by_tmeet.pk }}">
+                            <span id="like-icon-{{ notification.by_tmeet.pk }}" style="color:rgb(255, 0, 119);">&#9825;</span>
+                            <span id="like-count-{{ notification.by_tmeet.pk }}">{{ notification.by_tmeet.like.count }}</span>
+                        </div>
+                        {% endif %}
+                    </div>
+    
+                    {% if notification.by_tmeet.user == user %}
+                        <div class="delete_btn" data-pk="{{ notification.by_tmeet.pk }}" style="color:red; cursor:pointer;">
+                            <img class="delete-tmeet-icon" src={% static 'tmitter/image/delete_tmeet.png' %}>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
+
+{% block js %}
+{% endblock %}

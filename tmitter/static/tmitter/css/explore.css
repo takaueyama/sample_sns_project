@@ -1,0 +1,5 @@
+@charset "UTF-8";
+
+.right-side p:nth-child(1), .right-side form:nth-child(2) {
+    display: none;
+}

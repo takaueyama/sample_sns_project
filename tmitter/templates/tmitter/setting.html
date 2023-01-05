@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ user.nickname }}さん（@{{ user.username }}）の設定/Tmitter{% endblock %}
+
+{% block head %}
+    <link href="{% static 'tmitter/css/common.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.css" integrity="sha512-+VDbDxc9zesADd49pfvz7CgsOl2xREI/7gnzcdyA9XjuTxLXrdpuz21VVIqc5HPfZji2CypSbxx1lgD7BgBK5g==" crossorigin="anonymous" referrerpolicy="no-referrer">
+{% endblock %}
+
+{% block location_name %}プロフィール設定{% endblock %}
+
+{% block content %}
+<div class="profile-setting">
+    <div class="container">
+        <div class="header-setting">       
+            <div class="bg_dark">
+                <img id = "header-preview" src="{{ header_image_url }}">
+            </div>
+            
+            <label for="header_image_input"><img class="image-changer" src="{% static 'tmitter/image/image_changer.png' %}"></label>
+            <input type="file" id="header_image_input" accept="image/*">
+        </div>
+        <div class="icon-setting">
+            <img id="icon-preview" src="{{ icon_image_url }}">
+            <div class="bg_image"></div>
+            <label><label for="icon_image_input"><img class="image-changer" src="{% static 'tmitter/image/image_changer.png' %}"></label></label>
+            <input type="file" id="icon_image_input" accept="image/*">   
+        </div>
+
+
+        <form id="form" action="" enctype="multipart/form-data" method="post">
+            {% csrf_token %}
+
+            <!-- <button type="button" id="icon-btn-crop-action">アイコン切り取り</button> -->
+
+            <!-- ↓エラー表示後で追記する -->
+            {% comment %} {% for error in form.errors.values %}
+                {{ error }}
+            {% endfor %} {% endcomment %}
+            
+            {% comment %} <p><input type="file" name="header_image" accept="image/*" id="id_header_image"></p>
+            <p><input type="file" name="icon_image" accept="image/*" id="id_icon_image"></p> {% endcomment %}
+
+            {{ profile_form.as_p }}
+            <button class="profile-update-btn" type="submit">更新</button>
+        </form>
+        <button class="delete-user-btn">退会</button>
+
+
+        <!-- モーダルウィンドウ -->
+        <div id="headerModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1>メディアを編集</h1>
+                    <span class="modalClose">×</span>
+                </div>
+                <div class="modal-body">
+                    <img id="header-cropper-tgt">
+                </div>
+                <button type="button" id="header-btn-crop-action">切り取り</button>
+            </div>
+        </div>
+
+        <div id="iconModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1>メディアを編集</h1>
+                    <span class="modalClose">×</span>
+                </div>
+                <div class="modal-body">
+                    <img id="icon-cropper-tgt">
+                </div>
+                <button type="button" id="icon-btn-crop-action">切り取り</button>
+            </div>
+        </div>
+        <!-- モーダルウィンドウここまで -->
+    </div>
+</div>
+{% endblock %}
+
+
+{% block js %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js" integrity="sha512-ooSWpxJsiXe6t4+PPjCgYmVfr1NS5QXJACcR/FPpsdm6kqG1FmQ2SVyg2RXeVuCRBLr0lWHnWJP6Zs1Efvxzww==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{% static 'tmitter/js/setting.js' %}"></script>
+    <script>
+        const delete_user_btn = document.getElementsByClassName('delete-user-btn');
+
+        for (btn of delete_user_btn) {
+            btn.addEventListener('click', () => {
+                let check = confirm('アカウントを削除します。よろしいですか？');
+                if (check) {
+                    window.location.href = '{% url "delete_user" %}';
+                }
+            })
+        }
+    </script>
+{% endblock %}
