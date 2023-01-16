@@ -99,6 +99,10 @@
     margin-bottom: 5px;
 }
 
+.tmeet-detail p {
+    line-height: 130%;
+}
+
 /* create_tmeet */
 
 .create-tmeet-content #id_content {

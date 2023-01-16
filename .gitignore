@@ -131,3 +131,6 @@ dmypy.json
 # 追加
 tmitterproject/settings.py
 static/
+media/picture/
+media/header/
+media/icon/
