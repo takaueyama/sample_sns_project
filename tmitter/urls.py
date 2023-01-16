@@ -30,5 +30,6 @@ urlpatterns = [
     path('send_message', views.send_message, name='send_message'),
     path('dm_room_content/<str:user_name>/<int:dm_room_id>/', views.dm_room_content, name='dm_room_content'),
     path('search_talk_with_user_content', views.search_talk_with_user_content, name='search_talk_with_user_content'),
+    path('check_new_noti_and_dm', views.check_new_noti_and_dm, name='check_new_noti_and_dm'),
     path('<str:user_name>/', views.user_page, name="user_page"),
 ]

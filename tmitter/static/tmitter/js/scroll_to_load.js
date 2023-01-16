@@ -66,30 +66,6 @@ function follow(e) {
     });
 }
 
-// function delete_tmeet(e) {
-//     const pk = this.delete_btn.dataset.pk;
-//     e.preventDefault();
-//     const url = TemplateVar.delete_tmeet + '?tmeet_id=' + pk;
-//     fetch(url, {
-//         method: 'GET',
-//         headers: {
-//             'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
-//         },
-//     }).then(response => {
-//         return response.json();
-//     }).then(response => {
-//         console.log(response);
-//         if (response.deleted) {
-//             document.getElementById(`tmeet-${pk}`).style.display = "none";
-//         } else {
-
-//         }
-//         console.log("削除されました");
-//     }).catch(error => {
-//         console.log(error);
-//     });
-// }
-
 function delete_tmeet(delete_btn) {
     const pk = delete_btn.dataset.pk;
     // e.preventDefault();

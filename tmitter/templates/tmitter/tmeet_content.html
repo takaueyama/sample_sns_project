@@ -1,6 +1,7 @@
 {% load static %}
 {% for tmeet in page_obj %}
     <div id="tmeet-{{ tmeet.pk }}" class="tmeet" style="cursor:pointer;" >
+        <!-- ユーザーアイコン部分 -->
         <div class="user-icon">
             <a href="{% url 'user_page' tmeet.user.username %}">
                 {% if tmeet.user.icon_image %}
@@ -11,7 +12,8 @@
             </a>
         </div>
         <div class="tmeet-body">
-            <div onclick="location.href='{% url 'tmeet_detail' tmeet.id %}'">
+            <!-- Tmeetの投稿内容 -->
+            <div class="tmeet-content" onclick="location.href='{% url 'tmeet_detail' tmeet.id %}'">
                 <div class="tmeet-name">
                     <span class="nick-name">{{ tmeet.user.nickname }}</span>
                     <span class="user-name">@{{ tmeet.user.username }}</span>
@@ -22,7 +24,7 @@
                     {% endif %}
                 </div>
                 <div class="tmeet-detail">
-                    <p>{{ tmeet.content }}</p>
+                    <p>{{ tmeet.content | linebreaksbr }}</p>
                 
                     {% if tmeet.picture1 %}
                         <a href="{{ tmeet.picture1.url }}">
@@ -31,7 +33,7 @@
                     {% endif %}
                 </div>
             </div>
-
+            <!-- Tmeetへのいいね等 -->
             <div class="tmeet-footer">
                 <div class="tmeet-actions">
                     <div>

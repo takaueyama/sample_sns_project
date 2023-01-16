@@ -11,7 +11,9 @@
 
 {% block content %}
     {% for notification in notifications %}
+    <div class="{% if notification.pre_be_read == False %}new-notification{% else %}old-notification{% endif %}">
         {% if notification.kind ==  followed %}
+        <!-- フォローされた通知 -->
         <div class="notification-wrapper">
             <div class="notification-header">
                 <img src="{% static 'tmitter/image/create_tmeet.png' %}">
@@ -32,6 +34,7 @@
             </div>
         </div>
         {% endif %}
+        <!-- いいねされた場合の通知 -->
         {% if notification.kind ==  liked %}
         <div class="notification-wrapper">
             <div class="notification-header">
@@ -118,6 +121,7 @@
             </div>
         </div>
         {% endif %}
+    </div>
     {% endfor %}
 {% endblock %}
 

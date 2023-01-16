@@ -28,10 +28,17 @@
                     <div class="link-icon-wrapper">
                         <a href="{% url 'notification' %}" class="link-icon-anchor"><img class="link-icon" src="{% static 'tmitter/image/notification.png' %}"></a>
                         <span class="circle"></span>
+                        <div id="notification_notification" class="maru">
+                            <span></span>
+                        </div>
+                        
                     </div>
                     <div class="link-icon-wrapper">
                         <a href="{% url 'messages' %}" class="link-icon-anchor"><img class="link-icon" src="{% static 'tmitter/image/message.png' %}"></a>
                         <span class="circle"></span>
+                        <div id="dm_notification" class="maru">
+                            <span></span>
+                        </div>
                     </div>
                     <div class="link-icon-wrapper">
                         <a href="{% url 'user_page' user.username %}" class="link-icon-anchor"><img class="link-icon" src="{% static 'tmitter/image/profile.png' %}"></a>
@@ -87,6 +94,7 @@
         <script src="{% static 'tmitter/js/preview.js' %}"></script>
         {% block js %}{% endblock %}
         <script>
+            // ログアウトの処理
             const logout_icons = document.getElementsByClassName('logout-icon');
 
             for (icon of logout_icons) {
@@ -97,6 +105,50 @@
                     }
                 })
             }
+
+            // 新規の通知があるか確認する関数
+            function check_new_noti_and_dm() {
+                const notification_notification = document.getElementById("notification_notification");
+                const dm_notification = document.getElementById("dm_notification");
+                const url = "{% url 'check_new_noti_and_dm' %}"
+                fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8',
+                    },
+                }).then(response => {
+                    return response.json();
+                }).then(response => {
+                    // 新しい通知、DMがあった場合の処理
+                    if (response.new_notifications > 0) {
+                        notification_notification.style.display = "block";
+                    }
+                    if (response.new_dm_rooms > 0) {
+                        dm_notification.style.display = "block";
+                    }
+                }).catch(error => {
+                    console.log(error);
+                });
+            }
+
+            // 新規通知の確認処理の実行
+            document.addEventListener('DOMContentLoaded', check_new_noti_and_dm);
+            var intervalId = setInterval(check_new_noti_and_dm, 60000);
+
+            {% comment %} // tmeetの改行が反映されるよう処理
+            function check() {
+                // textareaの情報を取得
+                let textValue = document.form.comment.value;
+                
+                // 「＼n」で区切り、配列として文字を取り出し,取り出した文字ごとの後ろに<br>タグを付け加える。
+                textValue = textValue.split("\n").join("<br>");
+                
+                // divタグの要素にtextareaの情報を付与
+                const test = document.querySelector('.test');
+                test.innerHTML = textValue;
+            };
+
+            document.addEventListener('DOMContentLoaded', check); {% endcomment %}
         </script>
     </body>
 </html>

@@ -22,7 +22,6 @@
             </a>
         </div>
 
-
         <div class="tmeet-body">
             <div onclick="location.href='{% url 'tmeet_detail' tmeet.parent.id %}'">
                 <div class="tmeet-name">
@@ -35,7 +34,7 @@
                 </div>
                 {% endif %}
                 <div class="tmeet-detail">
-                    <p>{{ tmeet.parent.content }}</p>
+                    <p>{{ tmeet.parent.content | linebreaksbr }}</p>
                 
                     {% if tmeet.parent.picture1 %}
                         <a href="{{ tmeet.parent.picture1.url }}">
@@ -100,12 +99,11 @@
             {% if tmeet.parent %}
                 <div class="reply-to user-name">
                     <p>返信先: <a href="{% url 'user_page' tmeet.parent.user %}">@{{ tmeet.parent.user.username }}</a></p>
-                    {% comment %} 返信先: @{{ tmeet.parent.user.username }}さん {% endcomment %}
                 </div>
             {% endif %}
             <div onclick="location.href='{% url 'tmeet_detail' tmeet.id %}'">
                 <div class="tmeet-detail">
-                    <p>{{ tmeet.content }}</p>
+                    <p>{{ tmeet.content | linebreaksbr  }}</p>
                 
                     {% if tmeet.picture1 %}
                         <a href="{{ tmeet.picture1.url }}">

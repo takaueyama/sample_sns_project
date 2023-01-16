@@ -40,6 +40,9 @@ class Notification(models.Model):
     kind = models.IntegerField()
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='notification')
     created_at = models.DateTimeField(auto_now_add=True)
+    be_read = models.BooleanField(default=False)
+    pre_be_read = models.BooleanField(default=False)
+
     # followedとliked
     by_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='to_notification', null=True, blank=True)
     # replyとliked
@@ -54,6 +57,8 @@ class DmRoom(models.Model):
     users = models.ManyToManyField(CustomUser, related_name='dm_rooms')
     last_updated_at = models.DateTimeField()
     created_at = models.DateTimeField(auto_now_add=True)
+    # be_read = models.BooleanField(default=False)
+    has_read_users = models.ManyToManyField(CustomUser)
 
     class Meta:
         ordering = ['-last_updated_at']

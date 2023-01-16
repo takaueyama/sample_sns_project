@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
 window.addEventListener('load', function () {
     setInterval(function () {
         ajaxUpdate(url, div);
-    }, 6000);
+    }, 60000);
 });
 
 dm_sub_btn.addEventListener('click', (event) => {

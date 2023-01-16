@@ -12,7 +12,7 @@ li {
     border-radius: 5px;
     width: 24rem;
     height: 36rem;
-    margin: 200px auto;
+    margin: auto;
     background-color: white;
     text-align: center;
 }
@@ -54,7 +54,7 @@ li {
     max-width: 500px;
     width: 50%;
     min-width: 375px;
-    margin: 200px auto;
+    margin: auto;
 }
 
 .signup-form h1 {

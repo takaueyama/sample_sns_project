@@ -54,22 +54,6 @@ REPLIED_NOTI_NUM = 3
 #     return JsonResponse(context)
 
 @login_required
-def delete_tmeet(request):
-    tmeet_id = request.GET.get('tmeet_id')
-    deleted = True
-    try:
-        tmeet = Tmeet.objects.get(id=tmeet_id)
-        if (tmeet.user == request.user):
-            tmeet.delete()
-        else:
-            deleted = False
-    except Exception as e:
-        print(e)
-        deleted = False
-    return JsonResponse({'deleted': deleted, })
-
-
-@login_required
 def top(request):
     return redirect('home')
 
@@ -310,6 +294,20 @@ def like(request):
 
     return JsonResponse(context)
 
+@login_required
+def delete_tmeet(request):
+    tmeet_id = request.GET.get('tmeet_id')
+    deleted = True
+    try:
+        tmeet = Tmeet.objects.get(id=tmeet_id)
+        if (tmeet.user == request.user):
+            tmeet.delete()
+        else:
+            deleted = False
+    except Exception as e:
+        print(e)
+        deleted = False
+    return JsonResponse({'deleted': deleted, })
 
 @login_required
 def follow(request):
@@ -640,9 +638,19 @@ def setting(request):
 
 @login_required
 def notification(request):
-    form = TmeetForm()
-    # notifications = Notification.objects.all()
     notifications = Notification.objects.filter(user=request.user)
+    for notification in notifications:
+        if notification.be_read == True:
+            notification.pre_be_read = True
+            notification.save()
+
+    new_notifications = Notification.objects.filter(user=request.user, be_read=False)
+    for new_notification in new_notifications:
+        new_notification.be_read = True
+        new_notification.save()
+
+    form = TmeetForm()
+
     return render(request, 'tmitter/notification.html', {
         'notifications': notifications,
         'followed': FOLLOWED_NOTI_NUM,
@@ -727,20 +735,25 @@ def create_dm_room(request, user_id):
                 }))
 
     # 相手とのトークルームが無く、新規に作成する場合
-    talk_room = DmRoom.objects.create(last_updated_at=datetime.datetime.now())
-    talk_room.users.add(request.user)
-    talk_room.users.add(opp_user)
-    talk_room.save()
+    dm_room = DmRoom.objects.create(last_updated_at=datetime.datetime.now())
+    dm_room.users.add(request.user)
+    dm_room.users.add(opp_user)
+    dm_room.has_read_users.add(request.user)
+    dm_room.has_read_users.add(opp_user)
+    dm_room.save()
 
     return redirect(reverse('dm_room', kwargs={
                 'user_name': opp_user.username,
-                'dm_room_id': talk_room.id,
+                'dm_room_id': dm_room.id,
             }),)
 
 @login_required
 def dm_room(request, user_name, dm_room_id):
     dm_room = get_object_or_404(DmRoom, id=dm_room_id)
     opp_user = get_object_or_404(CustomUser, username=user_name)
+
+    dm_room.has_read_users.add(request.user)
+    dm_room.save()
 
     # 自分が参加していないトークルームを表示しようとした時
     if request.user not in dm_room.users.all():
@@ -810,6 +823,8 @@ def send_message(request):
         dm_message.save()
 
         dm_room.last_updated_at = datetime.datetime.now()
+        dm_room.has_read_users.clear()
+        dm_room.has_read_users.add(request.user)
         dm_room.save()
     except Exception as e:
         success = False
@@ -821,10 +836,14 @@ def send_message(request):
 
     return JsonResponse(context)
 
-# ajaxでdmを送信する時に使う
-# def send_message(request):
-#     # postでdm_room_idとcontentを受け取る
-#     dm_room_id = request.POST.get('dm_room_id')
-#     content = cgi.escape(request.POST.get('content'))
+# 最新の通知、DMがあるかどうかをJson形式で返す関数
+@login_required
+def check_new_noti_and_dm(request):
+    new_notifications = Notification.objects.filter(user=request.user, be_read=False)
+    new_dm_rooms = DmRoom.objects.filter(users=request.user).exclude(has_read_users=request.user)
+    context = {
+        'new_notifications': new_notifications.count(),
+        'new_dm_rooms': new_dm_rooms.count(),
+    }
 
-#     # contentのバリデーションする
+    return JsonResponse(context)

@@ -12,7 +12,7 @@
     <button class="create-dm-room" onclick="location.href='{% url 'search_talk_with_user'%}'">トークルームの新規作成</button>
     <div class="dm-rooms-wrapper">
         {% for room in dm_rooms %}
-            <div>
+            <div class="{% if user in room.has_read_users.all %}has_no_new_dm{% else %}has_new_dm{% endif %}">
                 {% for disp_user in room.users.all %}
                     {% if disp_user != user%}
                     <div class="dm-room" onclick="location.href='{% url 'dm_room' disp_user.username room.id %}'">
