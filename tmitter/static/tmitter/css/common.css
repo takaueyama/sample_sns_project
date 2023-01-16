@@ -549,7 +549,8 @@ div.bg_image {
 }
 
 .explore input {
-    min-width: 400px;
+    width: 80%;
+    max-width: 500px;
 }
 
 .reply-image {
@@ -655,6 +656,11 @@ div.bg_image {
 
 .dm-sender form{
     display: flex;
+}
+
+.dm-sender #dm-form p textarea {
+    max-width: 500px;
+    width: 40vw;
 }
 
 .dm-sender #id_content {
