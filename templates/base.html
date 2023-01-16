@@ -134,21 +134,6 @@
             // 新規通知の確認処理の実行
             document.addEventListener('DOMContentLoaded', check_new_noti_and_dm);
             var intervalId = setInterval(check_new_noti_and_dm, 60000);
-
-            {% comment %} // tmeetの改行が反映されるよう処理
-            function check() {
-                // textareaの情報を取得
-                let textValue = document.form.comment.value;
-                
-                // 「＼n」で区切り、配列として文字を取り出し,取り出した文字ごとの後ろに<br>タグを付け加える。
-                textValue = textValue.split("\n").join("<br>");
-                
-                // divタグの要素にtextareaの情報を付与
-                const test = document.querySelector('.test');
-                test.innerHTML = textValue;
-            };
-
-            document.addEventListener('DOMContentLoaded', check); {% endcomment %}
         </script>
     </body>
 </html>
