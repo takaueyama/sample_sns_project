@@ -130,3 +130,4 @@ dmypy.json
 
 # 追加
 tmitterproject/settings.py
+static/
