@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %} / Tmitter{% endblock %}
+{% block title %}{{ request.user.username }}{% endblock %}
 
 {% block head %}<link href="{% static 'tmitter/css/common.css' %}" rel="stylesheet">{% endblock %}
 

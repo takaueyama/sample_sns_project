@@ -132,6 +132,10 @@
     height: auto;
 }
 
+.create-tmeet-content .tmeet-body .tmeet-name {
+    text-align: left;
+}
+
 /* Tmeet詳細画面 */
 
 .main-tmeet {
@@ -659,8 +663,8 @@ div.bg_image {
 }
 
 .dm-sender #dm-form p textarea {
-    max-width: 500px;
-    width: 40vw;
+    max-width: 400px;
+    width: 60vw;
 }
 
 .dm-sender #id_content {

@@ -21,8 +21,14 @@ import json
 import pprint
 
 CustomUser = get_user_model()
-LOADING_COUNT = 35 # TmeetやUser等を一度に何件読み込むか
-RANDOM_STRING = 'erghqorna;oerkglarn;gh'
+# TmeetやUser等を一度に何件読み込むか
+LOADING_COUNT = 1 
+
+# 仕様上クエリパラメーターが必要なページで使うダミーのクエリパラメータ
+# ユーザーがクエリパラメータに代入される値を設定したかしなかったかの判定に使う
+RANDOM_STRING = 'erghqorna;oerkglarn;gh' 
+
+# 通知の種類を示す定数
 FOLLOWED_NOTI_NUM = 1
 LIKED_NOTI_NUM = 2
 REPLIED_NOTI_NUM = 3
@@ -63,7 +69,10 @@ def home(request):
     return render(request, 'tmitter/home.html', {'form': form, })
 
 def home_tmeet_content(request):
-    tmeets = Tmeet.objects.filter(parent=None)  
+    login_user_followings_id = Connection.objects.filter(follower=request.user).values_list('following', flat=True)
+    login_user_followings = CustomUser.objects.filter(id__in=login_user_followings_id)
+    tmeets = Tmeet.objects.filter(user__in=login_user_followings, parent=None)
+
     paginator = Paginator(tmeets, LOADING_COUNT)
     page = request.GET.get('page', default=1)
     max_page_number = math.ceil(tmeets.count() / LOADING_COUNT)

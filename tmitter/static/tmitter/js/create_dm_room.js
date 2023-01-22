@@ -32,9 +32,6 @@ const load_user_btn = document.getElementById('load_user');
 
 document.addEventListener('DOMContentLoaded', function (){
     if (TemplateVar.search_value !== TemplateVar.random_string) {
-        console.log(TemplateVar.random_string);
-        console.log(TemplateVar.search_value);
-        console.log(typeof(TemplateVar.search_value));
         const url = TemplateVar.user_content_url + '?page=' + user_page + '&q=' + TemplateVar.search_value;
         fetch(url, {
             method: 'GET',
