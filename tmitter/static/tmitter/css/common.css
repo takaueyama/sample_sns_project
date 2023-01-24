@@ -111,13 +111,18 @@
     border: none;
     background-color: rgb(239, 239, 239);
     resize: vertical; 
-    display: inline;
     margin: 15px 15px 0 15px;
     resize: none;
+    width: 80%;
 }
 
 .create-tmeet-content {
     text-align: center;
+}
+
+.create-tmeet-content .picture_preview {
+    width: 80%;
+    border-radius: 10px;
 }
 
 .create-tmeet-content .tmeet-detail p {
@@ -127,9 +132,10 @@
 
 .picture-adder img {
     align-items: center;
-    display: inline;
+    /* display: inline; */
     width: 20px;
     height: auto;
+    object-fit: cover;
 }
 
 .create-tmeet-content .tmeet-body .tmeet-name {
@@ -231,9 +237,6 @@
 }
 
 /* フォローボタン関連 */
-/* .follow {
-    border: ;
-} */
 
 .profile-header .follow { 
     width: 110px;

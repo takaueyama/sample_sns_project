@@ -4,9 +4,6 @@ function main () {
 
     input.addEventListener('change', (event) => {
         const [file] = event.target.files;
-
-        // console.log(preview_image);
-
         if (file) {
             preview_image.setAttribute('src', URL.createObjectURL(file));
         } else {

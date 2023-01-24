@@ -14,16 +14,13 @@ function like(e) {
     }).then(response => {
         return response.json();
     }).then(response => {
-        console.log("いいねが押されました");
         const counter = document.getElementById(`like-count-${pk}`)
         const icon = document.getElementById(`like-icon-${pk}`)
         counter.textContent = response.like_count
         if (response.method == 'create') {
             icon.textContent = "♥";
-            //icon.id = `like-for-comment-icon-${pk}`
         } else {
             icon.textContent = "♡";
-            //icon.id = `like-for-comment-icon-${pk}`
         } 
     }).catch(error => {
         console.log(error);
@@ -68,7 +65,7 @@ function f(){
 
 function delete_tmeet(delete_btn) {
     const pk = delete_btn.dataset.pk;
-    // e.preventDefault();
+    e.preventDefault();
     const url = TemplateVar.delete_tmeet + '?tmeet_id=' + pk;
     fetch(url, {
         method: 'GET',

@@ -21,7 +21,6 @@ function like(e) {
         } else {
             icon.textContent = "♡";
         }
-        console.log("いいねされました");
     }).catch(error => {
         console.log(error);
     });
@@ -52,7 +51,6 @@ function follow(e) {
             if (follower_count) {
                 follower_count.textContent = Number(follower_count.textContent) + 1;
             }
-            // console.log(following_text);
         } else {
             following_text.textContent = "フォロー";
             follow_btn.classList.replace('unfollow-action', 'follow-action');
@@ -60,7 +58,6 @@ function follow(e) {
                 follower_count.textContent = Number(follower_count.textContent) - 1;
             }      
         }
-        console.log("フォローボタンが押されました。");
     }).catch(error => {
         console.log(error);
     });
@@ -78,13 +75,11 @@ function delete_tmeet(delete_btn) {
     }).then(response => {
         return response.json();
     }).then(response => {
-        console.log(response);
         if (response.deleted) {
             document.getElementById(`tmeet-${pk}`).style.display = "none";
         } else {
 
         }
-        console.log("削除されました");
     }).catch(error => {
         console.log(error);
     });

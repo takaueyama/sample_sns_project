@@ -136,12 +136,24 @@ function follow(e) {
         return response.json();
     }).then(response => {
         const following_text = document.getElementById(`follow-${pk}`);
+        const follower_count = document.getElementById("follower_count");
+        const follow_btn = following_text.parentElement
 
         if (response.method === 'follow') {
             following_text.textContent = "フォロー中";
+            follow_btn.classList.replace('follow-action', 'unfollow-action');
+            if (follower_count) {
+                follower_count.textContent = Number(follower_count.textContent) + 1;
+            }
+            // console.log(following_text);
         } else {
-            following_text.textContent = "フォローする";
-        } 
+            following_text.textContent = "フォロー";
+            follow_btn.classList.replace('unfollow-action', 'follow-action');
+            if (follower_count) {
+                follower_count.textContent = Number(follower_count.textContent) - 1;
+            }      
+        }
+        console.log("フォローボタンが押されました。");
     }).catch(error => {
         console.log(error);
     });
@@ -170,7 +182,9 @@ document.addEventListener('DOMContentLoaded', function (){
             user_content.insertAdjacentHTML('beforeend', response.content);
             const follow_buttons = document.getElementsByClassName("follow");
             for (const button of follow_buttons) {
-                button.addEventListener('click', {button: button, handleEvent: follow});            
+                if (!user_pks.includes(button.dataset.pk)){
+                    button.addEventListener('click', {button: button, handleEvent: follow});
+                }              
             }
             for (const button of follow_buttons) {
                 user_pks.push(button.dataset.pk);
@@ -209,7 +223,9 @@ if (TemplateVar.search_value !== TemplateVar.random_string){
             user_content.insertAdjacentHTML('beforeend', response.content);
             const follow_buttons = document.getElementsByClassName("follow");
             for (const button of follow_buttons) {
-                button.addEventListener('click', {button: button, handleEvent: follow});            
+                if (!user_pks.includes(button.dataset.pk)) {
+                    button.addEventListener('click', {button: button, handleEvent: follow});  
+                }
             }
             for (const button of follow_buttons) {
                 user_pks.push(button.dataset.pk);

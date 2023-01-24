@@ -3,3 +3,17 @@
 .right-side p:nth-child(1), .right-side form:nth-child(2) {
     display: none;
 }
+
+#load_user, #load_tmeet {
+    color: rgb(0, 0, 0);
+    background-color: rgb(247, 247, 247);
+    padding: 5px;
+    margin: 5px;
+    border: solid 1px rgb(87, 87, 87);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#user_content {
+    margin-bottom: 20px;
+}
