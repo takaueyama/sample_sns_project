@@ -35,7 +35,8 @@ T*m*itterは既存のSNSアプリ「T*w*itter」を模したアプリです。�
 <img src="gif/login.gif" width="80%"><br>
 ◆ログアウト<br>
 <img src="gif/logout.gif" width="80%"><br>
-◆フォロー機能
+◆フォロー機能<br>
+<img src="gif/follow.gif" width="80%"><br>
 ## ③検索
 ◆投稿とユーザーの部分一致検索
 <img src="gif/explore.gif" width="80%"><br>
