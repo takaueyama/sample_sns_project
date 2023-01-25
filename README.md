@@ -21,20 +21,34 @@ T*m*itterは既存のSNSアプリ「T*w*itter」を模したアプリです。�
 # 実装機能
 ## ①短文投稿
 ◆短文の投稿、画像も添付可能<br>
+<img src="gif/create_tmeet.gif" width="80%"><br>
 ◆いいね機能<br>
+<img src="gif/like.gif" width="80%"><br>
 ◆返信機能<br>
+<img src="gif/reply.gif" width="80%"><br>
 ◆削除機能<br>
+<img src="gif/delete_tmeet.gif" width="80%"><br>
 ## ②ユーザー機能
-◆基本的な認証機能（新規登録、ログイン、ログアウトetc）<br>
+◆新規登録<br>
+<img src="gif/signup.gif" width="80%"><br>
+◆ログイン<br>
+<img src="gif/login.gif" width="80%"><br>
+◆ログアウト<br>
+<img src="gif/logout.gif" width="80%"><br>
 ◆フォロー機能
 ## ③検索
 ◆投稿とユーザーの部分一致検索
+<img src="gif/explore.gif" width="80%"><br>
 ## ④ダイレクトメッセージ
 ◆他のユーザーとショートメッセージのやり取りが可能<br>
+<img src="gif/dm.gif" width="80%"><br>
 ◆画面の更新不要でリアルタイムでメッセージが更新されます<br>
+<img src="gif/dm_ajax.gif" width="80%"><br>
 ## ⑤通知
 ◆自分が受け取ったフォロー、いいね、ダイレクトメッセージの一覧<br>
-◆新規の通知があった際にリアルタイムで知らされます<br>
+<img src="gif/notification.png" width="80%"><br>
+◆新規の通知やダイレクトメッセージがあった際にリアルタイムで知らされます<br>
+<img src="gif/bluecircle.png" width="80%"><br>
 
 # 使用技術
 ◆フロントエンド<br>
