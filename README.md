@@ -19,6 +19,7 @@ T*m*itterは既存のSNSアプリ「T*w*itter」を模したアプリです。�
 ユーザーの利用の快適さを重視しました。具体的には、いいね、フォロー、投稿の読み込み、ダイレクトメッセージや通知を受け取る際にページ全体を更新することなく結果が反映されるように実装しました。これによりユーザーにアクションをする度の更新の待ち時間がないようにしました。
 
 # 実装機能
+※画像はTmitter機能を実際に使っているYouTube動画へのリンクです。クリックしてご確認ください。
 ## ①短文投稿
 ◆短文の投稿、画像も添付可能<br>
 [![](https://img.youtube.com/vi/UgJMfXGQF0M/0.jpg)](https://www.youtube.com/watch?v=UgJMfXGQF0M)<br>
@@ -32,7 +33,8 @@ T*m*itterは既存のSNSアプリ「T*w*itter」を模したアプリです。�
 ◆新規登録<br>
 [![](https://img.youtube.com/vi/_1T74_K3i4Y/0.jpg)](https://www.youtube.com/watch?v=_1T74_K3i4Y)<br>
 ◆ログイン<br>
-[![](https://img.youtube.com/vi/i9MXEAblSXQ/0.jpg)](youtube.com/watch?v=i9MXEAblSXQ)<br>
+[![](https://img.youtube.com/vi/i9MXEAblSXQ/0.jpg)](https://www.youtube.com/watch?v=i9MXEAblSXQ)
+<br>
 ◆ログアウト<br>
 [![](https://img.youtube.com/vi/uFy7ylDRHlI/0.jpg)](https://www.youtube.com/watch?v=uFy7ylDRHlI)<br>
 ◆フォロー機能<br>
