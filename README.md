@@ -21,30 +21,30 @@ T*m*itterは既存のSNSアプリ「T*w*itter」を模したアプリです。�
 # 実装機能
 ## ①短文投稿
 ◆短文の投稿、画像も添付可能<br>
-<img src="gif/create_tmeet.gif" width="80%"><br>
+[![](https://img.youtube.com/vi/UgJMfXGQF0M/0.jpg)](https://www.youtube.com/watch?v=UgJMfXGQF0M)<br>
 ◆いいね機能<br>
-<img src="gif/like.gif" width="80%"><br>
+[![](https://img.youtube.com/vi/htzmIU5MxQM/0.jpg)](https://www.youtube.com/watch?v=htzmIU5MxQM)<br>
 ◆返信機能<br>
-<img src="gif/reply.gif" width="80%"><br>
+[![](https://img.youtube.com/vi/yD5ktNOGQD4/0.jpg)](https://www.youtube.com/watch?v=yD5ktNOGQD4)<br>
 ◆削除機能<br>
-<img src="gif/delete_tmeet.gif" width="80%"><br>
+[![](https://img.youtube.com/vi/nFwAm1nW-SY/0.jpg)](https://www.youtube.com/watch?v=nFwAm1nW-SY)<br>
 ## ②ユーザー機能
 ◆新規登録<br>
-<img src="gif/signup.gif" width="80%"><br>
+[![](https://img.youtube.com/vi/_1T74_K3i4Y/0.jpg)](https://www.youtube.com/watch?v=_1T74_K3i4Y)<br>
 ◆ログイン<br>
-<img src="gif/login.gif" width="80%"><br>
+[![](https://img.youtube.com/vi/i9MXEAblSXQ/0.jpg)](youtube.com/watch?v=i9MXEAblSXQ)<br>
 ◆ログアウト<br>
-<img src="gif/logout.gif" width="80%"><br>
+[![](https://img.youtube.com/vi/uFy7ylDRHlI/0.jpg)](https://www.youtube.com/watch?v=uFy7ylDRHlI)<br>
 ◆フォロー機能<br>
-<img src="gif/follow.gif" width="80%"><br>
+[![](https://img.youtube.com/vi/beLxK3GBo0U&feature=youtu.be/0.jpg)](https://www.youtube.com/watch?v=beLxK3GBo0U&feature=youtu.be)<br>
 ## ③検索
-◆投稿とユーザーの部分一致検索
-<img src="gif/explore.gif" width="80%"><br>
+◆投稿とユーザーの部分一致検索<br>
+[![](https://img.youtube.com/vi/TRxWIsag0m8/0.jpg)](https://www.youtube.com/watch?v=TRxWIsag0m8)<br>
 ## ④ダイレクトメッセージ
 ◆他のユーザーとショートメッセージのやり取りが可能<br>
-<img src="gif/dm.gif" width="80%"><br>
+[![](https://img.youtube.com/vi/Q5JFLQoZk3g/0.jpg)](https://www.youtube.com/watch?v=Q5JFLQoZk3g)<br>
 ◆画面の更新不要でリアルタイムでメッセージが更新されます<br>
-<img src="gif/dm_ajax.gif" width="80%"><br>
+[![](https://img.youtube.com/vi/8lKAEPyOdlw/0.jpg)](https://www.youtube.com/watch?v=8lKAEPyOdlw)<br>
 ## ⑤通知
 ◆自分が受け取ったフォロー、いいね、ダイレクトメッセージの一覧<br>
 <img src="gif/notification.png" width="80%"><br>
