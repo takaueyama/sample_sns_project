@@ -36,7 +36,7 @@ T*m*itterは既存のSNSアプリ「T*w*itter」を模したアプリです。�
 ◆ログアウト<br>
 [![](https://img.youtube.com/vi/uFy7ylDRHlI/0.jpg)](https://www.youtube.com/watch?v=uFy7ylDRHlI)<br>
 ◆フォロー機能<br>
-[![](https://img.youtube.com/vi/beLxK3GBo0U&feature=youtu.be/0.jpg)](https://www.youtube.com/watch?v=beLxK3GBo0U&feature=youtu.be)<br>
+[![](https://img.youtube.com/vi/beLxK3GBo0U/0.jpg)](https://www.youtube.com/watch?v=beLxK3GBo0U)<br>
 ## ③検索
 ◆投稿とユーザーの部分一致検索<br>
 [![](https://img.youtube.com/vi/TRxWIsag0m8/0.jpg)](https://www.youtube.com/watch?v=TRxWIsag0m8)<br>
