@@ -1,4 +1,4 @@
-# ポートフォリオ紹介
+# Tmitter特徴解説
 短文投稿SNS Tmitter (http://18.177.215.25)<br>
 以下の情報でゲストログインが可能です。<br>
 username: guest<br>
