@@ -1,0 +1,22 @@
+<html>
+  <head>
+  </head>
+  <body>
+    <div id="target">
+      
+    </div>
+  <script>
+    let mybox = {
+      'width':400, 
+      'height':300, 
+      'color':"#FF0000",
+      'border':[0, 10, 0, 10]
+    };
+    document.addEventListener('DOMContentLoaded', function (){
+      console.log("test")
+      document.getElementById("target").textContent = `ようこそ、${mybox.width}へ！`
+    });
+    
+  </script>
+  </body>
+</html>
