@@ -1,7 +1,6 @@
 import jpholiday
 import datetime
 import random
-import numpy as np
 
 AKE = 0
 YAKIN = 1
@@ -41,7 +40,7 @@ class Staff:
         return self.last_name + self.first_name
 
 class ShiftDay:
-    def __init__(self, day, day_point, night_point, day_people_count, night_people_count, id):
+    def __init__(self, day, day_point, night_point, day_people_count, night_people_count):
         # 日付
         self.day = day
         # 日勤に必要なポイント
@@ -52,42 +51,37 @@ class ShiftDay:
         self.day_people_count = day_people_count
         # 夜勤に必要な人数
         self.night_people_count = night_people_count
-        # 識別番号
-        self.id = id
 
     def __str__(self):
         return str(self.day)
 
-def prepare_shift_days(start_date, end_date, normal_day_point=9, normal_night_point=2.5, holiday_day_point=1.7, holiday_night_point=2.5, normal_day_people_count=10, normal_night_people_count=3, holiday_day_people_count=2, holiday_night_people_count=3):
+def prepare_shift_days(start_date, end_date, normal_day_point=9, normal_night_point=2.5, holiday_day_point=1.7, holiday_night_point=2.5, normal_day_people_count=12, normal_night_people_count=3, holiday_day_people_count=2, holiday_night_people_count=3):
     # シフトデイの集合
     shift_days = []
     start_date = start_date
     end_date = end_date
     current_date = start_date
-    shift_id = 0
 
     while True:
         # 休日祝日の場合
         if current_date.weekday() >= 5 or jpholiday.is_holiday(current_date):
-            shift_day = ShiftDay(current_date, holiday_day_point, holiday_night_point, holiday_day_people_count, holiday_night_people_count, shift_id)
+            shift_day = ShiftDay(current_date, holiday_day_point, holiday_night_point, holiday_day_people_count, holiday_night_people_count)
             shift_days.append(shift_day)
         # 平日の処理
         else:
-            shift_day = ShiftDay(current_date, normal_day_point, normal_night_point, normal_day_people_count, normal_night_people_count, shift_id)
+            shift_day = ShiftDay(current_date, normal_day_point, normal_night_point, normal_day_people_count, normal_night_people_count)
             shift_days.append(shift_day)
+
+        current_date = current_date + datetime.timedelta(days=1)
 
         if current_date == end_date:
             break
-
-        current_date = current_date + datetime.timedelta(days=1)
-        shift_id += 1
-
+    
     return shift_days
 
 def calculate_shift(shift_days, staffs):
-    # shift = dict()
-    ans = np.empty((len(shift_days), len(staffs)))
-    
+    shift = dict()
+    ans = dict()
     for shift_day in shift_days:
         # 日勤のスタッフプール
         nikkinn_pool = []
@@ -117,12 +111,11 @@ def calculate_shift(shift_days, staffs):
 
         # スタッフの条件によってスタッフのプールを作る
         for staff in staffs:
-            # 休まないといけないパターン(昨日までで6連勤 or 昨日が夜勤 or トータルの出勤日数に達している)
+            # 昨日までで6連勤 or 昨日が夜勤 or トータルの出勤日数に達している
             if staff.current_shift_streak >= 6 or staff.last_day_shift_pattern == YAKIN or staff.current_shift_count >= staff.max_shift_count:
                 continue
-            # 昨日が明けではなかった場合
-            if staff.last_day_shift_pattern != AKE:
-                nikkinn_pool.append(staff)
+
+            nikkinn_pool.append(staff)
 
         # 日勤のシフトを確定させる
         nikkin_success = False
@@ -222,7 +215,7 @@ def calculate_shift(shift_days, staffs):
         
         # 休みのシフトを確定させる
         for staff in staffs:
-            if staff in yakin or staff in nikkin or staff in ake:
+            if staff in yakin or staff in nikkin:
                 continue
             else:
                 yasumi.append(staff)
@@ -233,33 +226,23 @@ def calculate_shift(shift_days, staffs):
             raise Exception
         
         # シフト表に記録する
-        # パターン1
-        # shift[shift_day] = [nikkin, yakin, ake, yasumi]
+        shift[shift_day] = [nikkin, yakin]
 
-        # パターン2
-        for staff in nikkin:
-            ans[shift_day.id][staff.id] = NIKKINN
-        for staff in yakin:
-            ans[shift_day.id][staff.id] = YAKIN
-        for staff in ake:
-            ans[shift_day.id][staff.id] = AKE
-        for staff in yasumi:
-            ans[shift_day.id][staff.id] = YASUMI
+        #######################################################################################
+
+        #######################################################################################
 
         # スタッフの情報更新
         for staff in staffs:
-            # 明けに割り当たった場合
-            if staff in ake:
+            if staff.last_day_shift_pattern == YAKIN:
                 staff.last_day_shift_pattern = AKE
                 staff.current_shift_streak += 1
                 staff.current_shift_count += 1
-            # 日勤に割り当たった場合
             elif staff in nikkin:
                 staff.last_day_shift_pattern = NIKKINN
                 staff.current_shift_streak += 1
                 staff.current_shift_count += 1
                 staff.current_day_shift_count += 1
-            # 夜勤に割り当たった場合
             elif staff in yakin:
                 staff.last_day_shift_pattern = YAKIN
                 staff.current_shift_streak += 1
@@ -269,79 +252,40 @@ def calculate_shift(shift_days, staffs):
                 staff.last_day_shift_pattern = YASUMI
                 staff.current_shift_streak = 0
                 staff.current_off_day_count += 1
-    # return shift
-    return ans
+    return shift
 
 # 関数の実行
-start_date = datetime.date(2024, 4, 21)
-end_date = datetime.date(2024, 5, 20)
+start_date = datetime.date(2024, 4, 2)
+end_date = datetime.date(2024, 5, 1)
 
 # テスト用のスタッフを作成
 shift_pattern = [YAKIN, NIKKINN, YASUMI, AKE]    
 name_pool = ["佐藤", "山田", "朝倉", "斎藤", "渡辺", "堀口", "堀江", "グスタボ", "マッキー", "浜辺", "湊", "宝鐘", "かなえる", "樋口", "白石", "小坂", "与田", "設楽", "フリーレン"]
 test_staffs = []
-test_point = [1,2, 1.1, 1.0, 0.8, 0.7]
+test_point = [1,2, 1.0, 0.8, 0.7]
+
+for i in range(30):
+    staff = Staff(random.choice(name_pool), random.choice(name_pool), random.choice(test_point),False, random.choice(shift_pattern), 20, 6, 0, i)
+    test_staffs.append(staff)
 
 # テスト用のシフトの日付の範囲を用意
 test_shift_days = prepare_shift_days(start_date, end_date)
 
 # テスト用のシフトを作成
-while True:
-    test_staffs = []
-    try:
-        for i in range(21):
-            staff = Staff(random.choice(name_pool), random.choice(name_pool), random.choice(test_point),False, random.choice(shift_pattern), 20, 6, 0, i)
-            test_staffs.append(staff)
-        calculated_shift = calculate_shift(test_shift_days, test_staffs)
-        break
-    except:
-        print("失敗")
+calculated_shift = calculate_shift(test_shift_days, test_staffs)
+a ='かぶりなし'
 
-# for date in calculated_shift:
-#     print('--------------------')
-#     print('■ ' + str(date))
-#     print(" 日勤")
-#     for nikkin_staff in calculated_shift[date][0]:
-#         print(str(nikkin_staff.id) + ':' + nikkin_staff.last_name + nikkin_staff.first_name)
-#     print("\n 夜勤")
-#     for yakin_staff in calculated_shift[date][1]:
-#         print(str(yakin_staff.id) + ':' + yakin_staff.last_name + yakin_staff.first_name)
-#     print('\n 明け')
-#     for ake_staff in calculated_shift[date][2]:
-#         print(str(ake_staff.id) + ':' + ake_staff.last_name + ake_staff.first_name)
-#     print('\n 休み')
-#     for yasumi_staff in calculated_shift[date][3]:
-#         print(str(yasumi_staff.id) + ':' + yasumi_staff.last_name + yasumi_staff.first_name)
-#     print('--------------------\n')
-
-AKE = 0
-YAKIN = 1
-NIKKINN = 2
-YASUMI = 3
-
-shift_list = ['明け', '夜勤', '日勤', '休み']
-
-# for i in range(len(test_shift_days)):
-#     print('■ ' + str(test_shift_days[i]), '')
-#     for j in range(len(test_staffs)):
-#         staff = test_staffs[j]
-#         print(str(staff.id) + ': ' + shift_list[int(calculated_shift[i][j])] + ': ' +  str(staff.last_name) + str(staff.first_name), '')
-#     print('\n')
-
-# print(calculated_shift)
-
-#表状にシフトを出力する
-print('        ', end='')
-for staff in test_staffs:
-    # print(str(staff.id) + ': ' + str(staff.last_name) + str(staff.last_name), end='')
-    print(str(staff.id) + '　', end='')
-
-print('')
-print('--------------------')
-
-for i in range(len(test_shift_days)):
-    print(str(test_shift_days[i])[-5:] + ': ', end='')
-    for j in range(len(test_staffs)):
-        staff = test_staffs[j]
-        print(shift_list[int(calculated_shift[i][j])][0] + '  ', end='')
-    print('\n')
+for date in calculated_shift:
+    print('■ ' + str(date))
+    print(" 日勤")
+    for nikkin_staff in calculated_shift[date][0]:
+        print(str(nikkin_staff.id) + ':' + nikkin_staff.last_name + nikkin_staff.first_name)
+    print()
+    print(" 夜勤")
+    for yakin_staff in calculated_shift[date][1]:
+        print(str(yakin_staff.id) + ':' + yakin_staff.last_name + yakin_staff.first_name)
+        if yakin_staff in calculated_shift[date][0]:
+            a = 'かぶってます！！'
+    print(a)
+    print()
+    print()
