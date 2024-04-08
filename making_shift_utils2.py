@@ -36,10 +36,10 @@ def prepare_shift_days(start_date, end_date, normal_day_point=8.5, normal_night_
     return shift_days
 
 def calculate_shift(shift_days, staffs):
-    ans = np.empty((len(shift_days), len(staffs)))
+    # ans = np.empty((len(shift_days), len(staffs)))
 
     # 3x3の二次元配列を定義し、初期値を0とする
-    matrix = [[-1 for _ in range(3)] for _ in range(3)]
+    ans = [[-1 for _ in range(len(staffs))] for _ in range(len(shift_days))]
 
     for shift_day in shift_days:
         # 日勤候補のスタッフ
